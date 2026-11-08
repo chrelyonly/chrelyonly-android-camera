@@ -27,8 +27,8 @@ android {
         applicationId = "cn.chrelyonly.chrelyonly_camera"
         minSdk = 31
         targetSdk = 37
-        versionCode = 20261106
-        versionName = "20261106"
+        versionCode = 20261108
+        versionName = "20261108"
         signingConfig = signingConfigs.getByName("debug")
 
     }
@@ -57,6 +57,15 @@ android {
     ndkVersion = "28.2.13676358"
 }
 
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            output.outputFileName.set(
+                "莓莓水印相机-${android.defaultConfig.versionName}-${variant.name}.apk"
+            )
+        }
+    }
+}
 dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
