@@ -27,8 +27,8 @@ android {
         applicationId = "cn.chrelyonly.chrelyonly_camera"
         minSdk = 31
         targetSdk = 37
-        versionCode = 20261108
-        versionName = "20261108"
+        versionCode = 20261113
+        versionName = "20261113"
         signingConfig = signingConfigs.getByName("debug")
 
     }
