@@ -61,21 +61,26 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
         updateDisplayLocation()
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val loc = LocationHelper.getCurrentLocationString(getApplication())
-                _realLocationText.value = loc
+                val locResult = LocationHelper.getCurrentLocationDetails(getApplication())
+                _realLocationText.value = locResult.addressString
                 updateDisplayLocation()
-                refreshWeather(loc)
+                refreshWeather(
+                    locationQuery = locResult.addressString,
+                    lat = locResult.latitude,
+                    lng = locResult.longitude
+                )
             } catch (e: Exception) {
                 _realLocationText.value = "定位失败"
                 updateDisplayLocation()
+                refreshWeather(locationQuery = "")
             }
         }
     }
 
-    fun refreshWeather(locationQuery: String = "") {
+    fun refreshWeather(locationQuery: String = "", lat: Double? = null, lng: Double? = null) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val weather = WeatherHelper.fetchWeather(locationQuery)
+                val weather = WeatherHelper.fetchWeather(locationQuery, lat, lng)
                 val current = _watermarkConfig.value
                 _watermarkConfig.value = current.copy(weatherText = weather)
             } catch (e: Exception) {
@@ -88,7 +93,9 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
         _customLocationText.value = custom
         updateDisplayLocation()
         if (!custom.isNullOrEmpty()) {
-            refreshWeather(custom)
+            refreshWeather(locationQuery = custom)
+        } else {
+            refreshWeather(locationQuery = _realLocationText.value)
         }
     }
 

@@ -4,7 +4,7 @@ data class WatermarkConfig(
     val showTime: Boolean = true,
     val showLocation: Boolean = true,
     val showWeather: Boolean = true,
-    val weatherText: String = "☀️ 晴 24℃ 空气优",
+    val weatherText: String = "正在获取天气...",
     val showCustomText: Boolean = true,
     val customText: String = "我的专属相机水印",
     val ratioX: Float = 0.05f,

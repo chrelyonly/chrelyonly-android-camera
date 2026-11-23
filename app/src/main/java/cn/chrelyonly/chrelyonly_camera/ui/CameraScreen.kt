@@ -75,7 +75,6 @@ fun CameraScreen(viewModel: CameraViewModel = viewModel()) {
     LaunchedEffect(permissionsState.allPermissionsGranted) {
         if (permissionsState.allPermissionsGranted) {
             viewModel.refreshLocation()
-            viewModel.refreshWeather()
         }
     }
 
@@ -639,12 +638,12 @@ fun LocationPickerDialog(
         containerColor = Color(0xFF1C1C1E),
         titleContentColor = Color.White,
         textContentColor = Color.White,
-        title = { Text("选择定位位置", fontWeight = FontWeight.Bold) },
+        title = { Text("选择国内定位位置", fontWeight = FontWeight.Bold) },
         text = {
             Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-                Text("您可以输入自定义的地点名称（如：公司、景区、城市等），或使用实时 GPS 定位。", color = Color.LightGray, fontSize = 13.sp)
+                Text("您可以手动输入自定义国内地址，亦可使用实时 GPS/网络自动定位。", color = Color.LightGray, fontSize = 13.sp)
 
                 OutlinedTextField(
                     value = locationInput,
@@ -667,7 +666,7 @@ fun LocationPickerDialog(
                 ) {
                     Icon(Icons.Default.MyLocation, contentDescription = "GPS", tint = Color.Green, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("使用实时GPS自动定位", color = Color.White)
+                    Text("使用实时GPS/网络自动定位", color = Color.White)
                 }
             }
         },
